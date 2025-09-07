@@ -177,7 +177,8 @@ const joinMeet = (envVal: string, durationVal: string, roomVal: string) => {
     lapsed.value = `${minutes.value}:${seconds.value}`;
     console.log(`Duration: ${minutes.value}:${seconds.value}`);
 
-    const client = new Client("http://localhost:2567");
+    // const client = new Client("http://localhost:2567");
+    const client = new Client("https://colys-blindate.onrender.com");
 
     const newRoom = new RoomScene(bjsCanvas.value, client);
     newRoom.connectToRoom(theEnv.value, theRoom.value, theDuration.value);
