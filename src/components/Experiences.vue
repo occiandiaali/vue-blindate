@@ -370,10 +370,10 @@ class RoomScene {
     boxYellow.position.x = -8;
   }
 
-  exportedTimer = (val: number) => {
-    this.theTime = val;
-    return this.theTime;
-  };
+  // exportedTimer = (val: number) => {
+  //   this.theTime = val;
+  //   return this.theTime;
+  // };
 
   async connectToRoom(roomName: string, cName: string, expiry: string) {
     this.createGround(roomName);
@@ -393,7 +393,9 @@ class RoomScene {
       );
       cube.position = new Vector3(player.x, player.y, player.z);
       cube.checkCollisions = true;
-      this.camera.setTarget(cube.position);
+      if (sessionId === this.room.sessionId) {
+        this.camera.setTarget(cube.position);
+      }
 
       const mat = new StandardMaterial(`mat-${sessionId}`, this.scene);
       mat.diffuseColor =

@@ -56,12 +56,12 @@
                 class="w-full mb-2 block p-2 border rounded"
               >
                 <option value="">--Environment--</option>
-                <option value="my_room">My Room</option>
-                <option value="https://playcanv.as/p/AFQwcgYw/">
+                <option value="my_room">Black Ground</option>
+                <!-- <option value="https://playcanv.as/p/AFQwcgYw/">
                   Whitebox & NPCs
-                </option>
-                <option value="green_room">Green Room</option>
-                <option value="https://playcanv.as/p/c1o59wX5/">
+                </option> -->
+                <option value="green_room">Green Ground</option>
+                <!-- <option value="https://playcanv.as/p/c1o59wX5/">
                   Bungalow
                 </option>
                 <option value="https://playcanv.as/p/yQ1cNsmW/" disabled>
@@ -74,7 +74,7 @@
 
                 <option value="https://playcanv.as/p/XkL7IH8y/" disabled>
                   Lobby scene
-                </option>
+                </option> -->
                 <!-- Add more options if needed -->
               </select>
               <label>Choose a duration (minutes):</label>
@@ -126,19 +126,10 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-//import { type Meeting } from "../interfaces/Meeting";
-//import { createMeet } from "../services/MeetingService";
+
 import { customRandomString } from "../utils/customRandomString.js";
 
 import { supabase } from "../utils/supabase.js";
-
-// interface Meeting {
-//   roomId: string;
-//   environment: string;
-//   duration: string;
-//   participants: string[];
-//   meetingDay: Date;
-// }
 
 const thisUser = ref("");
 const thisUsername = ref("");
@@ -174,11 +165,14 @@ const createMeeting = async (obj: any) => {
   const { data, error } = await supabase.from("meetings").insert([obj]);
   //  .single();
 
-  console.log("meeting data", data);
-  console.log("meeting obj", obj);
+  // console.log("meeting data", data);
+  // console.log("meeting obj", obj);
 
   if (error) {
     console.error("Error creating meeting:", error.message);
+    alert(
+      "Sorry, can't schedule this experience at the moment. Try again later"
+    );
   } else {
     console.log("Meeting created:", data);
     return data;
