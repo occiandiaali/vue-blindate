@@ -32,6 +32,7 @@
           </div> -->
 
           <slot name="renderCanvas"></slot>
+          <p id="instructions">Use W-A-S-D keys to move</p>
         </div>
         <!-- <div class="modal-footer">
           <button
@@ -110,5 +111,13 @@ function toggleMute() {
 canvas {
   width: 100%;
   height: 100%;
+}
+#instructions {
+  color: black;
+  opacity: 0.6;
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  margin: 2%;
 }
 </style>

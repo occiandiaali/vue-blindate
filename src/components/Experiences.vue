@@ -88,6 +88,7 @@
         <div class="blanket" id="blanket">
           {{ theDuration }}
         </div>
+        <p id="playerAdded">Loading your player..</p>
         <canvas ref="roomCanvas"></canvas>
       </template>
     </room-modal>
@@ -385,6 +386,11 @@ class RoomScene {
     const $ = getStateCallbacks(this.room);
 
     $(this.room.state).players.onAdd((player, sessionId) => {
+      if (player) {
+        document.getElementById("playerAdded")!.style.display = "none";
+      } else {
+        document.getElementById("playerAdded")!.style.display = "block";
+      }
       console.log("Player added!", player, sessionId);
       const cube = MeshBuilder.CreateBox(
         `cube-${sessionId}`,
@@ -620,5 +626,12 @@ li {
 .section {
   margin-top: 10%;
   position: relative;
+}
+
+@media only screen and (max-width: 640px) {
+  .blanket {
+    width: 15%;
+    right: 20%;
+  }
 }
 </style>
