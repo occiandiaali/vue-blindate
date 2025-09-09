@@ -154,9 +154,9 @@ const handleSignUp = async () => {
       password: password.value,
       options: {
         data: {
-          avatar_url: "https://api.samplefaces.com/face?width=200",
-          full_name: fullName.value,
           username: userName.value,
+          full_name: fullName.value,
+          avatar_url: "https://api.samplefaces.com/face?width=200",
           // gender: gender.value,
         },
       },

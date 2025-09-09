@@ -88,7 +88,7 @@
         <div class="blanket" id="blanket">
           {{ theDuration }}
         </div>
-        <p id="playerAdded">Loading your player..</p>
+        <p id="playerAdded">Loading your avatar..</p>
         <canvas ref="roomCanvas"></canvas>
       </template>
     </room-modal>
@@ -384,12 +384,20 @@ class RoomScene {
     });
 
     const $ = getStateCallbacks(this.room);
+    const playerAddedText = document.getElementById("playerAdded");
 
     $(this.room.state).players.onAdd((player, sessionId) => {
       if (player) {
-        document.getElementById("playerAdded")!.style.display = "none";
+        playerAddedText!.style.display = "none";
       } else {
-        document.getElementById("playerAdded")!.style.display = "block";
+        playerAddedText!.style.display = "block";
+        playerAddedText!.style.zIndex = "999";
+        playerAddedText!.style.color = "white";
+        playerAddedText!.style.position = "absolute";
+        playerAddedText!.style.left =
+          (window.innerWidth - playerAddedText!.offsetWidth) / 2 + "px";
+        playerAddedText!.style.top =
+          (window.innerHeight - playerAddedText!.offsetHeight) / 2 + "px";
       }
       console.log("Player added!", player, sessionId);
       const cube = MeshBuilder.CreateBox(
@@ -622,6 +630,8 @@ canvas {
 }
 li {
   list-style-type: none;
+}
+#playerAdded {
 }
 .section {
   margin-top: 10%;

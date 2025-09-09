@@ -53,19 +53,31 @@ const setTarget = (useridValue, usernameValue, avatarValue) => {
   theTargetId.value = useridValue;
 };
 
-const DBUsers = async () => {
+// const DBUsers = async () => {
+//   const { data, error } = await supabase.from("profiles").select();
+//   if (error) console.error(error);
+//   //  dbUsers.value = data;
+//   console.log("DBUsers", dbUsers.value);
+//   return data;
+// };
+// onMounted(() => {
+//   DBUsers().then((r) => {
+//     dbUsers.value = r;
+//     console.debug(dbUsers);
+//     concatUsers.value = fakeUsers.concat(dbUsers.value);
+//     console.log("onMounted concatUsers ", concatUsers.value);
+//   });
+// });
+
+onMounted(async () => {
   const { data, error } = await supabase.from("profiles").select();
   if (error) console.error(error);
-  //  dbUsers.value = data;
-  console.log("DBUsers", dbUsers.value);
-  return data;
-};
-onMounted(() => {
-  DBUsers().then((r) => {
-    dbUsers.value = r;
+  if (data) {
+    dbUsers.value = data;
+    console.log("onMounted dbUsers ", dbUsers.value);
     concatUsers.value = fakeUsers.concat(dbUsers.value);
     console.log("onMounted concatUsers ", concatUsers.value);
-  });
+  }
 });
 </script>
 

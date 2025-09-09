@@ -113,7 +113,7 @@ canvas {
   height: 100%;
 }
 #instructions {
-  color: black;
+  color: white;
   opacity: 0.6;
   position: absolute;
   bottom: 5%;

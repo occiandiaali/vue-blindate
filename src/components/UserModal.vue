@@ -268,6 +268,7 @@ onMounted(async () => {
 
   thisUser.value = theID; //metadata?.username;
   thisUsername.value = metadata?.username;
+  console.log("thisUsername: ", thisUsername.value);
 });
 </script>
 
