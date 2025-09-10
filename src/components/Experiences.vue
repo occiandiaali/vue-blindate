@@ -118,7 +118,7 @@ let theEnv = ref("");
 let theDuration = ref("");
 let theRoom = ref("");
 const lapsed = ref();
-const localStream = ref();
+let localStream = ref();
 const timeup = ref(false);
 
 function countdownTimer(ms: number) {
@@ -183,13 +183,6 @@ const joinMeet = (envVal: string, durationVal: string, roomVal: string) => {
 
     const newRoom = new RoomScene(bjsCanvas.value, client);
     newRoom.connectToRoom(theEnv.value, theRoom.value, theDuration.value);
-
-    // Get mic access
-    // navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-    //   localStream.value = stream;
-    //   // You can now add this stream to your WebRTC peer connection
-
-    // });
   } else {
     window.alert(
       "Make sure your partner is also ready to Join at the same time."
@@ -227,20 +220,12 @@ import {
   //UniversalCamera,
   // LoadAssetContainerAsync,
 } from "@babylonjs/core";
-import {
-  AdvancedDynamicTexture,
-  Button,
-  InputText,
-  TextBlock,
-} from "@babylonjs/gui/2D";
+import { AdvancedDynamicTexture, Button } from "@babylonjs/gui/2D";
 import "@babylonjs/loaders";
 //import { registerBuiltInLoaders } from "@babylonjs/loaders/dynamic";
 
 import { setupInputControls } from "../room-scenes/multiplayer-scene/inputController";
-import {
-  countdown,
-  millisToMinutesAndSeconds,
-} from "../utils/millisToMinsAndSecs";
+import { millisToMinutesAndSeconds } from "../utils/millisToMinsAndSecs";
 
 class RoomScene {
   engine: Engine;
@@ -487,11 +472,11 @@ class RoomScene {
 
       // WebRTC setup
       const peerConnection = new RTCPeerConnection();
-      let localStream;
+      //  let localStream;
 
       // Get mic access
       navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-        localStream = stream;
+        localStream.value = stream;
         stream
           .getTracks()
           .forEach((track) => peerConnection.addTrack(track, stream));
@@ -564,18 +549,18 @@ class RoomScene {
         }
       });
 
-      this.room.onMessage("playerJoined", (playerId) => {
+      this.room.onMessage("playerJoined", () => {
         // console.log(`${playerId} joined..`);
 
         cube.position.set(player.x, player.y, player.z);
         this.playerCount++;
       });
-      this.room.onMessage("startDate", (data) => {
-        // console.log("Date started for(mins):", data / 1000 / 60);
-        // console.log("startDate for >>>>");
-        // console.log(data);
-        // console.log(data / 1000 / 60, " minutes..");
-      });
+      // this.room.onMessage("startDate", (data) => {
+      //   console.log("Date started for(mins):", data / 1000 / 60);
+      //   console.log("startDate for >>>>");
+      //   console.log(data);
+      //   console.log(data / 1000 / 60, " minutes..");
+      // });
       this.room.onMessage("players", (data) => {
         // console.log("room length: ", data);
         if (data === 2) {
@@ -585,13 +570,14 @@ class RoomScene {
         }
       });
 
-      this.room.onMessage("playerLeft", (playerId) => {
-        // console.log(`${playerId} left..`);
-      });
+      // this.room.onMessage("playerLeft", (playerId) => {
+      //    console.log(`${playerId} left..`);
+      // });
     });
 
     $(this.room.state).players.onRemove((player, sessionId) => {
       //  console.log("Player removed!", player, sessionId);
+      alert(`${player} left..`);
       this.cubes[sessionId]?.dispose();
       delete this.cubes[sessionId];
     });
@@ -631,8 +617,8 @@ canvas {
 li {
   list-style-type: none;
 }
-#playerAdded {
-}
+/* #playerAdded {
+} */
 .section {
   margin-top: 10%;
   position: relative;

@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, useTemplateRef } from "vue";
+import { onMounted } from "vue";
 import BabylonScene from "./BabylonScene.vue";
 //import BabylonScene from "../room-scenes/BabylonScene";
 //import { MultiplayerScene } from "../room-scenes/multiplayer-scene/MultiplayerScene";

@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { watch } from "vue";
 
 const meetingModalProps = defineProps([
   "environ",
@@ -88,25 +88,25 @@ const closeModal = () => window.location.reload();
 // }
 watch(
   () => meetingModalProps.timeup,
-  (newValue, oldValue) => {
+  () => {
     //  console.log(`timeup changed from ${oldValue} to ${newValue}`);
     closeModal();
   }
 );
 
-const isMuted = ref(false);
+//const isMuted = ref(false);
 
-function toggleMute() {
-  //  console.log("localstream", meetingModalProps.localStream);
-  if (!meetingModalProps.localStream) return;
+// function toggleMute() {
+//     console.log("localstream", meetingModalProps.localStream);
+//   if (!meetingModalProps.localStream) return;
 
-  const audioTracks = meetingModalProps.localStream.getAudioTracks();
-  if (audioTracks.length > 0) {
-    isMuted.value = !isMuted.value;
-    // console.log("Muted..", isMuted.value);
-    audioTracks[0].enabled = !isMuted.value;
-  }
-}
+//   const audioTracks = meetingModalProps.localStream.getAudioTracks();
+//   if (audioTracks.length > 0) {
+//     isMuted.value = !isMuted.value;
+//      console.log("Muted..", isMuted.value);
+//     audioTracks[0].enabled = !isMuted.value;
+//   }
+// }
 </script>
 
 <style lang="css" scoped>
