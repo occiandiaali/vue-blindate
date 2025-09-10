@@ -6,25 +6,16 @@ export function useMeetings() {
   //const myMeetings = ref<Meeting[]>([]);
   const loading = ref(false);
   const error = ref<string | null>(null);
-  let metadata;
+  //let metadata;
   const requester = ref("");
   const currentUser = ref();
   const currentUserMeetings = ref<any[]>([]);
-
-  // const fetchUser = async () => {
-  //   const {
-  //     data: { user },
-  //   } = await supabase.auth.getUser();
-  //   metadata = user?.user_metadata;
-  //   console.log("Meta", metadata);
-  //   return metadata?.username;
-  // };
 
   const getCurrentUser = async () => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    metadata = user?.user_metadata;
+    //  metadata = user?.user_metadata;
     let userid = user?.id;
     // console.log("Meta", metadata);
 
