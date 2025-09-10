@@ -48,7 +48,7 @@ let theTargetPic = ref("");
 let theTargetId = ref("");
 const setTarget = (useridValue, usernameValue, avatarValue) => {
   theTarget.value = usernameValue;
-  console.log("usernameValue", usernameValue);
+  //  console.log("usernameValue", usernameValue);
   theTargetPic.value = avatarValue;
   theTargetId.value = useridValue;
 };
@@ -74,9 +74,9 @@ onMounted(async () => {
   if (error) console.error(error);
   if (data) {
     dbUsers.value = data;
-    console.log("onMounted dbUsers ", dbUsers.value);
+    // console.log("onMounted dbUsers ", dbUsers.value);
     concatUsers.value = fakeUsers.concat(dbUsers.value);
-    console.log("onMounted concatUsers ", concatUsers.value);
+    // console.log("onMounted concatUsers ", concatUsers.value);
   }
 });
 </script>

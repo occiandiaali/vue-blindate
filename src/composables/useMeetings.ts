@@ -26,7 +26,7 @@ export function useMeetings() {
     } = await supabase.auth.getUser();
     metadata = user?.user_metadata;
     let userid = user?.id;
-    console.log("Meta", metadata);
+    // console.log("Meta", metadata);
 
     return userid; //metadata?.username;
   };
@@ -36,7 +36,7 @@ export function useMeetings() {
     // error.value = null;
     getCurrentUser().then((u) => {
       currentUser.value = u;
-      console.log("currentUser ", currentUser.value);
+      //  console.log("currentUser ", currentUser.value);
     });
     // fetchUser().then((user) => {
     //   requester.value = user;
@@ -71,17 +71,17 @@ export function useMeetings() {
 
     if (fetchError) {
       error.value = fetchError.message;
-      console.error(error.value);
+      // console.error(error.value);
       return [];
     } else {
       // meetings.value = data as Meeting[];
       currentUserMeetings.value = data || [];
       // currentUserMeetings.value.push(data || []);
-      console.log("useMeeting ", currentUserMeetings);
-      console.log(data);
+      // console.log("useMeeting ", currentUserMeetings);
+      // console.log(data);
       data.forEach((d) => {
-        console.log(d);
-        console.log("organizer", d.organizer);
+        // console.log(d);
+        // console.log("organizer", d.organizer);
         requester.value = d.organizer;
       });
     }

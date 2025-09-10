@@ -16,12 +16,12 @@
           ></button>
         </div>
         <div class="modal-body">
-          <button
+          <!-- <button
             @click="toggleMute"
             style="position: absolute; top: 5px; left: 5px"
           >
             {{ isMuted ? "Unmute" : "Mute" }}
-          </button>
+          </button> -->
 
           <!-- <div
             id="chatBox"
@@ -32,7 +32,9 @@
           </div> -->
 
           <slot name="renderCanvas"></slot>
-          <p id="instructions">Use W-A-S-D keys to move</p>
+          <p id="instructions">
+            Use W-A-S-D keys to move. Mouse to look around
+          </p>
         </div>
         <!-- <div class="modal-footer">
           <button
@@ -87,7 +89,7 @@ const closeModal = () => window.location.reload();
 watch(
   () => meetingModalProps.timeup,
   (newValue, oldValue) => {
-    console.log(`timeup changed from ${oldValue} to ${newValue}`);
+    //  console.log(`timeup changed from ${oldValue} to ${newValue}`);
     closeModal();
   }
 );
@@ -95,13 +97,13 @@ watch(
 const isMuted = ref(false);
 
 function toggleMute() {
-  console.log("localstream", meetingModalProps.localStream);
+  //  console.log("localstream", meetingModalProps.localStream);
   if (!meetingModalProps.localStream) return;
 
   const audioTracks = meetingModalProps.localStream.getAudioTracks();
   if (audioTracks.length > 0) {
     isMuted.value = !isMuted.value;
-    console.log("Muted..", isMuted.value);
+    // console.log("Muted..", isMuted.value);
     audioTracks[0].enabled = !isMuted.value;
   }
 }

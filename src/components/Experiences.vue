@@ -110,7 +110,7 @@ import { Client, getStateCallbacks, Room } from "colyseus.js";
 const { currentUserMeetings, loading, error, currentUser, requester } =
   useMeetings();
 
-console.log("current", currentUserMeetings);
+//console.log("current", currentUserMeetings);
 
 const bjsCanvas = useTemplateRef("roomCanvas") || null;
 
@@ -176,7 +176,7 @@ const joinMeet = (envVal: string, durationVal: string, roomVal: string) => {
     )
   ) {
     lapsed.value = `${minutes.value}:${seconds.value}`;
-    console.log(`Duration: ${minutes.value}:${seconds.value}`);
+    // console.log(`Duration: ${minutes.value}:${seconds.value}`);
 
     // const client = new Client("http://localhost:2567");
     const client = new Client("https://colys-blindate.onrender.com");
@@ -554,7 +554,7 @@ class RoomScene {
       //   }
       // };
 
-      console.log(`stateTimeLeft: ${this.room.state.timeLeft}`);
+      //  console.log(`stateTimeLeft: ${this.room.state.timeLeft}`);
 
       this.room.onMessage("playerMoved", (data) => {
         const { sessionId, x, y, z } = data;
@@ -565,33 +565,33 @@ class RoomScene {
       });
 
       this.room.onMessage("playerJoined", (playerId) => {
-        console.log(`${playerId} joined..`);
+        // console.log(`${playerId} joined..`);
 
         cube.position.set(player.x, player.y, player.z);
         this.playerCount++;
       });
       this.room.onMessage("startDate", (data) => {
         // console.log("Date started for(mins):", data / 1000 / 60);
-        console.log("startDate for >>>>");
-        console.log(data);
+        // console.log("startDate for >>>>");
+        // console.log(data);
         // console.log(data / 1000 / 60, " minutes..");
       });
       this.room.onMessage("players", (data) => {
-        console.log("room length: ", data);
+        // console.log("room length: ", data);
         if (data === 2) {
           this.roomFull = true;
-          console.log("Room Full!", this.roomFull);
+          // console.log("Room Full!", this.roomFull);
           countdownTimer(this.room.state.timeLeft);
         }
       });
 
       this.room.onMessage("playerLeft", (playerId) => {
-        console.log(`${playerId} left..`);
+        // console.log(`${playerId} left..`);
       });
     });
 
     $(this.room.state).players.onRemove((player, sessionId) => {
-      console.log("Player removed!", player, sessionId);
+      //  console.log("Player removed!", player, sessionId);
       this.cubes[sessionId]?.dispose();
       delete this.cubes[sessionId];
     });
