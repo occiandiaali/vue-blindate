@@ -32,6 +32,7 @@ import fakeUsers from "../fake-data/fake-users.js";
 import UserModal from "./UserModal.vue";
 import placeholder from "../assets/user_placeholder_pic.jpg";
 import { supabase } from "../utils/supabase.js";
+import isMobileDevice from "../utils/isMobileDevice.js";
 
 // const alertClicked = (data) => {
 //   window.alert(`Show ${data}`);
@@ -70,6 +71,11 @@ const setTarget = (useridValue, usernameValue, avatarValue) => {
 // });
 
 onMounted(async () => {
+  if (isMobileDevice()) {
+    window.alert(
+      "You'll have a better experience if you use this app on a desktop."
+    );
+  }
   const { data, error } = await supabase.from("profiles").select();
   if (error) console.error(error);
   if (data) {
@@ -92,6 +98,7 @@ onMounted(async () => {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   grid-gap: 1rem;
+  margin-top: 5%;
 }
 
 .breweries > ul > li {
@@ -109,6 +116,12 @@ onMounted(async () => {
   position: absolute;
   top: 5px;
   left: 5px;
+}
+
+@media screen and (max-width: 400px) {
+  .breweries {
+    margin-top: 10%;
+  }
 }
 
 @keyframes pulse {

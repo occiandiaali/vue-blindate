@@ -1,9 +1,14 @@
 <template>
   <section class="section">
-    <div v-if="loading">Loading experiences...</div>
-    <p v-else-if="Object.keys(currentUserMeetings).length === 0">
-      You have no Experiences to show
+    <div class="empty-list-p" v-if="loading">Loading experiences...</div>
+    <p
+      class="empty-list-p"
+      v-else-if="Object.keys(currentUserMeetings).length === 0"
+    >
+      🧐🧐🧐 You have no Experiences to show 🧐🧐🧐 Why not
+      <a href="/">create some</a>?
     </p>
+
     <div v-else-if="error">Error: {{ error }}</div>
     <ul v-else>
       <li v-for="meeting in currentUserMeetings" :key="meeting.id">
@@ -96,7 +101,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useTemplateRef } from "vue";
+import { onMounted, ref, useTemplateRef } from "vue";
 import { useMeetings } from "../composables/useMeetings";
 
 import { supabase } from "../utils/supabase";
@@ -104,8 +109,15 @@ import RoomModal from "./RoomModal.vue";
 
 import { useMinSecCountdown } from "../composables/useMinSecCountdown";
 import { isToday } from "../utils/compareDateTime";
+import isMobileDevice from "../utils/isMobileDevice";
 
 import { Client, getStateCallbacks, Room } from "colyseus.js";
+
+onMounted(() => {
+  if (isMobileDevice()) {
+    window.alert("For the best experience, use a desktop browser..");
+  }
+});
 
 const { currentUserMeetings, loading, error, currentUser, requester } =
   useMeetings();
@@ -609,10 +621,16 @@ canvas {
   width: 100%;
   height: 100%;
 }
+.empty-list-p {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .item-wrap {
   padding: 8px;
   background-color: rgb(230, 230, 225);
-  margin: 4px;
+  margin: 8px;
 }
 li {
   list-style-type: none;
@@ -622,12 +640,17 @@ li {
 .section {
   margin-top: 10%;
   position: relative;
+
+  padding: 4px;
 }
 
 @media only screen and (max-width: 640px) {
   .blanket {
     width: 15%;
     right: 20%;
+  }
+  ul > li:first-child {
+    margin-top: 15%;
   }
 }
 </style>

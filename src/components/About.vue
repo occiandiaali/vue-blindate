@@ -1,6 +1,6 @@
 <template>
   <section class="section">
-    <h1>About Page</h1>
+    <h1>About us</h1>
     <p>
       /ˈblaɪndeɪt/. is the new way to find your (near) perfect match online.
     </p>
@@ -30,5 +30,11 @@
 <style lang="css" scoped>
 .section {
   margin-top: 10%;
+}
+
+@media screen and (max-width: 750px) {
+  .section {
+    margin-top: 25%;
+  }
 }
 </style>

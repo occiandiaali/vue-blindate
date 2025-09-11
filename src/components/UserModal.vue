@@ -48,7 +48,7 @@
             >
               <input class="hidden" id="crush" name="crush" />
               <input class="hidden" id="crushphoto" name="crushphoto" />
-              <label>Location:</label>
+              <label>Choose an environment:</label>
               <select
                 name="environment"
                 id="environment"
