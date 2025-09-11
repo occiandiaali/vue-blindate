@@ -587,9 +587,9 @@ class RoomScene {
       // });
     });
 
-    $(this.room.state).players.onRemove((player, sessionId) => {
+    //$(this.room.state).players.onRemove((player, sessionId) => {
+    $(this.room.state).players.onRemove((sessionId) => {
       //  console.log("Player removed!", player, sessionId);
-      alert(`${player} left..`);
       this.cubes[sessionId]?.dispose();
       delete this.cubes[sessionId];
     });
