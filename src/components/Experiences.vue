@@ -93,6 +93,7 @@
         <div class="blanket" id="blanket">
           {{ theDuration }}
         </div>
+        <!--Display this because render.com needs seconds to spin from sleep mode-->
         <p id="playerAdded">Loading your avatar..</p>
         <canvas ref="roomCanvas"></canvas>
       </template>
@@ -190,8 +191,8 @@ const joinMeet = (envVal: string, durationVal: string, roomVal: string) => {
     lapsed.value = `${minutes.value}:${seconds.value}`;
     // console.log(`Duration: ${minutes.value}:${seconds.value}`);
 
-    // const client = new Client("http://localhost:2567");
-    const client = new Client("https://colys-blindate.onrender.com");
+    const client = new Client("http://localhost:2567");
+    // const client = new Client("https://colys-blindate.onrender.com");
 
     const newRoom = new RoomScene(bjsCanvas.value, client);
     newRoom.connectToRoom(theEnv.value, theRoom.value, theDuration.value);
@@ -368,6 +369,9 @@ class RoomScene {
     boxYellow.position.x = -8;
   }
 
+  // peerConnection: any;
+  config = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
+
   // exportedTimer = (val: number) => {
   //   this.theTime = val;
   //   return this.theTime;
@@ -379,6 +383,8 @@ class RoomScene {
       custom_name: cName,
       expires: expiry,
     });
+
+    //========================
 
     const $ = getStateCallbacks(this.room);
     const playerAddedText = document.getElementById("playerAdded");
@@ -483,10 +489,11 @@ class RoomScene {
       // }
 
       // WebRTC setup
-      const peerConnection = new RTCPeerConnection();
-      //  let localStream;
 
-      // Get mic access
+      const peerConnection = new RTCPeerConnection(this.config);
+      // let localStream;
+
+      //  Get mic access
       navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
         localStream.value = stream;
         stream
@@ -494,7 +501,7 @@ class RoomScene {
           .forEach((track) => peerConnection.addTrack(track, stream));
       });
 
-      // Handle incoming audio
+      //  Handle incoming audio
       peerConnection.ontrack = (event) => {
         const audio = document.createElement("audio");
         audio.srcObject = event.streams[0];
@@ -585,6 +592,12 @@ class RoomScene {
       // this.room.onMessage("playerLeft", (playerId) => {
       //    console.log(`${playerId} left..`);
       // });
+
+      this.room.onMessage("playerLeft", (playerId) => {
+        this.cubes[playerId]?.dispose();
+        delete this.cubes[playerId];
+        alert(`${playerId} left..`);
+      });
     });
 
     //$(this.room.state).players.onRemove((player, sessionId) => {

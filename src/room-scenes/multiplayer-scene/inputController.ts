@@ -32,7 +32,7 @@ export function setupInputControls(
       // console.log(pos);
       // room.send("move", { x: dx, y: dy, z: dz });
       const pos = localCube().position;
-      console.log(pos);
+      // console.log(pos);
       room.send("move", { x: pos.x, y: pos.y, z: pos.z });
     }
   });
